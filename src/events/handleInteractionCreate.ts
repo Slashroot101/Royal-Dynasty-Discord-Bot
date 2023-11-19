@@ -1,8 +1,14 @@
 import { Interaction, InteractionResponse } from "discord.js";
 import commandCache from '../libs/commandRegistry'
 import logger from "../libs/logger";
+import { getOrCreateDiscordUser } from "../libs/discordUser/business";
 
 export default async function(interaction: Interaction): Promise<void>{
+    logger.debug(`Handling interaction ${interaction.id}`)
+
+    logger.debug(`Handling pre-check conditions and getting discord user meta`)
+    const [discordUser] = await Promise.all([getOrCreateDiscordUser(interaction.user.id)])
+    logger.debug(`Passed pre-check conditions and got meta`)
     if(interaction.isChatInputCommand()){
         const command = commandCache.get(interaction.commandName)
 

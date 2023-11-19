@@ -3,29 +3,29 @@ import { pgSchema, uuid, text, date } from "drizzle-orm/pg-core";
 
 export const schema = pgSchema("royal")
 
-export const DiscordUser = schema.table("discord_user", {
+export const DiscordUserSchema = schema.table("discord_user", {
     id: uuid("id").notNull(),
     snowflake: text("snowflake").notNull(),
-    createdAt: date("createdAt").defaultNow(),
-    updadatedAt: date("updatedAt").defaultNow()
+    createdAt: date("createdAt", {mode: 'date'}).defaultNow().notNull(),
+    updatedAt: date("updatedAt", {mode: 'date'}).defaultNow().notNull()
 })
 
-export const DiscordGuildMember = schema.table("discord_guild_member", {
+export const DiscordGuildMemberSchema = schema.table("discord_guild_member", {
     id: uuid("id").notNull(),
     discordUserId: uuid("discordUserId").notNull(),
     discordGuildId: uuid("discordGuildId").notNull(),
-    memberId: uuid("memberId").notNull(),
-    createdAt: date("createdAt").defaultNow(),
-    updadatedAt: date("updatedAt").defaultNow()   
+    snowflake: text("snowflake").notNull(),
+    createdAt: date("createdAt", {mode: 'date'}).defaultNow().notNull(),
+    updatedAt: date("updatedAt", {mode: 'date'}).defaultNow().notNull()
 })
 
-export const DiscordGuild = schema.table("discord_guild", {
+export const DiscordGuildSchema = schema.table("discord_guild", {
     id: uuid("id").notNull(),
     snowflake: text("snowflake").notNull(),
-    createdAt: date("createdAt").defaultNow(),
-    updadatedAt: date("updatedAt").defaultNow()
+    createdAt: date("createdAt", {mode: 'date'}).defaultNow().notNull(),
+    updatedAt: date("updatedAt", {mode: 'date'}).defaultNow().notNull()
 })
 
-export const discordUserGuildMemberRelation = relations(DiscordUser, ({many}) => ({
-    userToGuildMember: many(DiscordGuildMember)
+export const discordUserGuildMemberRelation = relations(DiscordUserSchema, ({many}) => ({
+    userToGuildMember: many(DiscordGuildMemberSchema)
 }))

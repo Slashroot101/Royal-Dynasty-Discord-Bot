@@ -5,9 +5,9 @@ import {drizzle} from 'drizzle-orm/node-postgres'
 const pool = new Pool({
     database: "royal",
     host: db.host,
-    username: db.username,
+    user: db.username,
     password: db.password,
-    port: db.port
+    port: Number(db.port)
 })
 
 export const database = drizzle(pool, {schema})
