@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "start": "npx ts-node ./src/index.ts | pino-pretty -i pid,hostname -t yyyy-mm-dd HH:MM:ss",
+    "generate": "drizzle-kit generate:pg --out ./migrations --schema ./src/libs/database/schemas.ts"
+  },
+  "dependencies": {
+    "@discordjs/rest": "^2.2.0",
+    "discord-api-types": "^0.37.63",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "drizzle-orm": "^0.29.0",
+    "pg": "^8.11.3",
+    "pino": "^8.16.2",
+    "pino-pretty": "^10.2.3",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.2",
+    "drizzle-kit": "^0.20.4",
+    "typescript": "^5.2.2"
+  }
+}
