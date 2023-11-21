@@ -22,6 +22,20 @@
       "when": 1700364717743,
       "tag": "0002_purple_juggernaut",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1700597736574,
+      "tag": "0003_public_thundra",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1700597894730,
+      "tag": "0004_serious_rachel_grey",
+      "breakpoints": true
     }
   ]
 }

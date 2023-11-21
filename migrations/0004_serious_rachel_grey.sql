@@ -1,0 +1,1 @@
+ALTER TABLE "royal"."command" ADD CONSTRAINT "command_name_unique" UNIQUE("name");

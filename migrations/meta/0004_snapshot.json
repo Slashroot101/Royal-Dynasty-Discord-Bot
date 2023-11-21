@@ -1,0 +1,302 @@
+{
+  "id": "d0eea767-0f42-4b2a-8b06-ef6151d3f54b",
+  "prevId": "e6d49e1b-dbdf-4ed4-9778-fc06e67d3e65",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "discord_guild_member": {
+      "name": "discord_guild_member",
+      "schema": "royal",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "discordUserId": {
+          "name": "discordUserId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "discordGuildId": {
+          "name": "discordGuildId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "snowflake": {
+          "name": "snowflake",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "discord_guild": {
+      "name": "discord_guild",
+      "schema": "royal",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "snowflake": {
+          "name": "snowflake",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "discord_user": {
+      "name": "discord_user",
+      "schema": "royal",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "snowflake": {
+          "name": "snowflake",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "command_execution": {
+      "name": "command_execution",
+      "schema": "royal",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "commandId": {
+          "name": "commandId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "discordUserId": {
+          "name": "discordUserId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "discordGuildMemberId": {
+          "name": "discordGuildMemberId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "command": {
+      "name": "command",
+      "schema": "royal",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "numAllowedUses": {
+          "name": "numAllowedUses",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cooldownInSeconds": {
+          "name": "cooldownInSeconds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deleted": {
+          "name": "deleted",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "command_name_unique": {
+          "name": "command_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name"
+          ]
+        }
+      }
+    },
+    "guild_command": {
+      "name": "guild_command",
+      "schema": "royal",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "commandId": {
+          "name": "commandId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "discordGuildId": {
+          "name": "discordGuildId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "numAllowedUses": {
+          "name": "numAllowedUses",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cooldownInSeconds": {
+          "name": "cooldownInSeconds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {
+    "royal": "royal"
+  },
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
