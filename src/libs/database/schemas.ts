@@ -53,7 +53,6 @@ export const guildCommandSchema = schema.table("guild_command", {
 export const commandExecutionSchema = schema.table("command_execution", {
     id: uuid("id").notNull().primaryKey(),
     commandId: uuid("commandId").notNull(),
-    discordUserId: uuid("discordUserId").notNull(),
     discordGuildMemberId: uuid("discordGuildMemberId").notNull(),
     createdAt: date("createdAt", {mode: 'date'}).defaultNow().notNull(),
     updatedAt: date("updatedAt", {mode: 'date'}).defaultNow().notNull()

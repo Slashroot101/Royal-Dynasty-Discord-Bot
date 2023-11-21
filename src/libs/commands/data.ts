@@ -1,7 +1,7 @@
 import { notInArray } from "drizzle-orm"
 import { database } from "../database"
 import { commandSchema } from "../database/schemas"
-import { Command, CommandDataObject, CreatedCommandObject } from "../../types"
+import { CommandDataObject, CreatedCommandObject } from "../../types"
 
 export const softDeleteCommandsWhereNameNotIn = async (commandNames: string[]) => {
     return await database.update(commandSchema).set({deleted: true}).where(notInArray(commandSchema.name, commandNames)).execute()

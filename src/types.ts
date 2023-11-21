@@ -12,7 +12,7 @@ export type AppConfig = {
 
 import { SlashCommandBuilder } from "discord.js"
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
-import { DiscordGuildMemberSchema, DiscordGuildSchema, DiscordUserSchema, commandSchema } from "./libs/database/schemas";
+import { DiscordGuildMemberSchema, DiscordGuildSchema, DiscordUserSchema, commandSchema, guildCommandSchema } from "./libs/database/schemas";
 
 export type Command = {
   id?: string
@@ -20,6 +20,11 @@ export type Command = {
   execute: Function;
   defaultCooldownInSeconds?: number;
   numAllowedUses?: number;
+}
+
+export type RateLimitResponse = {
+  rateLimited: boolean;
+  nextAvailableAt: Date;
 }
 
 export type CreatedDiscordUser = InferInsertModel<typeof DiscordUserSchema>
@@ -30,3 +35,5 @@ export type CreatedDiscordGuildMember = InferInsertModel<typeof DiscordGuildMemb
 export type DiscordGuildMember = InferSelectModel<typeof DiscordGuildMemberSchema>
 export type CommandDataObject = InferSelectModel<typeof commandSchema>
 export type CreatedCommandObject = InferInsertModel<typeof commandSchema>
+export type GuildCommand = InferSelectModel<typeof guildCommandSchema>
+export type CreatedGuildCommand = InferInsertModel<typeof guildCommandSchema> 

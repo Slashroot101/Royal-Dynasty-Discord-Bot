@@ -1,0 +1,1 @@
+ALTER TABLE "royal"."command_execution" DROP COLUMN IF EXISTS "discordUserId";
