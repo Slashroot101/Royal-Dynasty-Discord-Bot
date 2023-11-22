@@ -5,8 +5,8 @@ import { getOrCreateDiscordUser } from "../libs/discordUser/business";
 import { getOrCreateDiscordGuildMember } from "../libs/discordGuildMember/business";
 import { DiscordGuild, DiscordGuildMember } from "../types";
 import { getOrCreateDiscordGuild } from "../libs/discordGuild/business";
-import { isUserRateLimited } from "../libs/commandExecution/business";
-import hdate from 'human-date'
+import { isUserRateLimited, saveUserExecutedCommand } from "../libs/commandExecution/business";
+import humanizeDuration from 'humanize-duration'
 export default async function(interaction: Interaction): Promise<void>{
     logger.debug(`Handling interaction ${interaction.id}`)
 
@@ -37,17 +37,18 @@ export default async function(interaction: Interaction): Promise<void>{
 
         if(command.id){
             logger.debug(`Checking ratea limit status`)
-            const isUserRatedLimited = await isUserRateLimited(guildMember!.id, command)
-            logger.debug(`User is ${isUserRatedLimited ? '' : 'not'} rate limited`)
-
-            if(isUserRatedLimited){
-                interaction.reply({content: `You are rate limited, come back in ${hdate.relativeTime(isUserRateLimited.)}`, ephemeral: true})
+            const rateLimit = await isUserRateLimited(guildMember!.id, command)
+            logger.debug(`User is ${rateLimit.rateLimited ? '' : 'not'} rate limited`)
+            console.log(rateLimit.nextAvailableAt)
+            if(rateLimit.rateLimited){
+                interaction.reply({content: `You are rate limited, come back in ${humanizeDuration(rateLimit.nextAvailableAt.getTime() - new Date().getTime(), {maxDecimalPoints: 0, round: true})}`, ephemeral: true})
                 return
             }
         }
 
         logger.debug(`Executing command ${interaction.commandName}`)
         try {
+            await saveUserExecutedCommand(command.id!, guildMember!.id)
             await command.execute(interaction)
         } catch (error) {
             logger.error(`Error executing command ${interaction.commandName} ${error}`)

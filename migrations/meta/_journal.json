@@ -43,6 +43,13 @@
       "when": 1700599884069,
       "tag": "0005_greedy_leader",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1700620788094,
+      "tag": "0006_perfect_agent_brand",
+      "breakpoints": true
     }
   ]
 }

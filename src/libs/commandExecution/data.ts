@@ -1,9 +1,9 @@
-import { and, between, eq } from "drizzle-orm"
+import { and, asc, between, desc, eq } from "drizzle-orm"
 import { database } from "../database"
 import { commandExecutionSchema } from "../database/schemas"
 import { randomUUID } from "crypto"
 
-export const getUserCommandExecutionForGuild = (memberId: string, commandId: string, lookbackSeconds) => {
+export const getUserCommandExecutionForGuild = (memberId: string, commandId: string, lookbackSeconds: number) => {
     return database.select()
     .from(commandExecutionSchema)
     .where(
@@ -13,6 +13,7 @@ export const getUserCommandExecutionForGuild = (memberId: string, commandId: str
             between(commandExecutionSchema.createdAt, new Date(Date.now() - lookbackSeconds * 1000), new Date()
         )
     ))
+    .orderBy(asc(commandExecutionSchema.createdAt))
     .execute()
 }
 
