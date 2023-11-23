@@ -26,6 +26,7 @@ export const initializeSlashCommand = async (): Promise<Map<string, Command>> =>
         commands.set(x.name, {data: command.data, execute: command.execute, ...x})
         logger.debug(`Completed setting metadata for command [${x.name}]`)
       })
+      console.log([...commands].map(([_, value]) => (value.data)))
       logger.debug(`Completed creating command entries in database, cleaning up non-existent ones`)
       await rest.put(Routes.applicationCommands(discordClientId), { body: [...commands].map(([_, value]) => (value.data)) })
       logger.info('Succesfully created slash interactions with Discord');

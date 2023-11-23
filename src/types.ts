@@ -12,7 +12,7 @@ export type AppConfig = {
 
 import { SlashCommandBuilder } from "discord.js"
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
-import { DiscordGuildMemberSchema, DiscordGuildSchema, DiscordUserSchema, commandSchema, guildCommandSchema } from "./libs/database/schemas";
+import { DiscordGuildMemberSchema, DiscordGuildSchema, DiscordUserSchema, commandSchema, guildCommandSchema, userGuildBankSchema, userGuildBankTransactionSchema } from "./libs/database/schemas";
 
 export type Command = {
   id?: string
@@ -37,3 +37,14 @@ export type CommandDataObject = InferSelectModel<typeof commandSchema>
 export type CreatedCommandObject = InferInsertModel<typeof commandSchema>
 export type GuildCommand = InferSelectModel<typeof guildCommandSchema>
 export type CreatedGuildCommand = InferInsertModel<typeof guildCommandSchema> 
+export type UserGuildBank = InferSelectModel<typeof userGuildBankSchema>
+export type CreatedUserGuildBank = InferInsertModel<typeof userGuildBankSchema>
+export type UserGuildBankTransaction = InferSelectModel<typeof userGuildBankTransactionSchema>
+export type CreatedUserGuildBankTransaction = InferInsertModel<typeof userGuildBankTransactionSchema>
+
+export type CommandExecutionContext = {
+  user: DiscordUser
+  guild: DiscordGuild
+  guildMember: DiscordGuildMember
+  bank: UserGuildBank
+}
