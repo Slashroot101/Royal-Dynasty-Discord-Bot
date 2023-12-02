@@ -40,7 +40,7 @@ export default async function(interaction: Interaction): Promise<void>{
         }
 
         if(command.id){
-            logger.debug(`Checking ratea limit status`)
+            logger.debug(`Checking rate limit status`)
             const rateLimit = await isUserRateLimited(guildMember!.id, command)
             logger.debug(`User is ${rateLimit.rateLimited ? '' : 'not'} rate limited`)
             console.log(rateLimit.nextAvailableAt)

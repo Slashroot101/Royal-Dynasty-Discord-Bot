@@ -1,6 +1,7 @@
 import { UserGuildBank } from "../../types"
 import logger from "../logger"
-import { createUserBank, getUserBank } from "./data"
+import { createTransactionHistory } from "../userGuildBankTransactions/business"
+import { addToUserBank, createUserBank, getUserBank } from "./data"
 
 export const getOrCreateUserGuildBank = async (discordGuildMemberId: string): Promise<UserGuildBank> => {
   logger.debug(`Getting or creating user guild bank for discordGuildMemberId ${discordGuildMemberId}`)
@@ -12,4 +13,14 @@ export const getOrCreateUserGuildBank = async (discordGuildMemberId: string): Pr
   }
   logger.debug(`User guild bank found for discordGuildMemberId ${discordGuildMemberId}. Returning.`)
   return userGuildBank[0]
+}
+
+export const incrementUserBank = async (discordUserGuildBankId: string, amount: number): Promise<UserGuildBank> => {
+  logger.debug(`Adding ${amount} to user guild bank for discordUserGuildBankId ${discordUserGuildBankId}`)
+  const userBank = await addToUserBank(discordUserGuildBankId, amount)
+  logger.debug(`Added ${amount} to user guild bank for discordUserGuildBankId ${discordUserGuildBankId}`)
+  logger.debug(`Adding to transaction audit table`)
+  await createTransactionHistory(discordUserGuildBankId, amount)
+  logger.debug(`Added to transaction audit table`)
+  return userBank[0]
 }
